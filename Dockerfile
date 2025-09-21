@@ -2,8 +2,8 @@ FROM jlesage/baseimage-gui:debian-11
 
 ENV APP_NAME="iDRAC 6"  \
     IDRAC_PORT=443      \
-    DISPLAY_WIDTH=801   \
-    DISPLAY_HEIGHT=621
+    DISPLAY_WIDTH=1024   \
+    DISPLAY_HEIGHT=768
 
 COPY keycode-hack.c /keycode-hack.c
 
@@ -12,7 +12,8 @@ RUN APP_ICON_URL=https://raw.githubusercontent.com/DomiStyle/docker-idrac6/maste
 
 RUN apt-get update && \
     apt-get install -y wget software-properties-common libx11-dev gcc xdotool && \
-    wget -nc https://cdn.azul.com/zulu/bin/zulu8.68.0.21-ca-jdk8.0.362-linux_amd64.deb && \
+    wget -nc https://cdn.azul.com/zulu/bin/zulu8.88.0.19-ca-jdk8.0.462-linux_amd64.deb
+#    wget -nc https://cdn.azul.com/zulu/bin/zulu8.68.0.21-ca-jdk8.0.362-linux_amd64.deb && \
     apt-get install -y ./zulu8.68.0.21-ca-jdk8.0.362-linux_amd64.deb && \
     gcc -o /keycode-hack.so /keycode-hack.c -shared -s -ldl -fPIC && \
     apt-get remove -y gcc software-properties-common && \
